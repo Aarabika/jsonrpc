@@ -9,17 +9,6 @@ import (
 	"net/http/httptest"
 )
 
-func TestRequestId(t *testing.T) {
-
-	c := context.Background()
-	id := "1"
-	c = SetRequestId(c, id)
-	var pick string
-	require.NotPanics(t, func() {
-		pick = RequestId(c)
-	})
-	require.Equal(t, id, pick)
-}
 
 func TestHeader(t *testing.T) {
 
@@ -38,7 +27,6 @@ func TestHeader(t *testing.T) {
 	require.Equal(t, headers, pick)
 }
 
-
 func TestResponseWriter(t *testing.T) {
 
 	c := context.Background()
@@ -49,26 +37,4 @@ func TestResponseWriter(t *testing.T) {
 		pick = ResponseWriter(c)
 	})
 	require.Equal(t, w, pick)
-}
-
-
-func TestCookies(t *testing.T) {
-
-	c := context.Background()
-	cookie := &http.Cookie{
-		Name:"test",
-	}
-
-	getter := func(name string) (*http.Cookie, error){
-		if name == "test" {
-			return cookie, nil
-		}
-		return nil, http.ErrNoCookie
-	}
-
-	c = SetCookies(c, getter)
-	pick, err := Cookies(c,"test")
-
-	require.NoError(t, err)
-	require.Equal(t, cookie, pick)
 }

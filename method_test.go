@@ -28,7 +28,7 @@ func TestTakeMethod(t *testing.T) {
 	require.IsType(t, &Error{}, err)
 	assert.Equal(t, ErrorCodeMethodNotFound, err.Code)
 
-	require.NoError(t, mr.RegisterMethod("test", SampleHandler(), nil, nil))
+	require.NoError(t, mr.RegisterMethod("test", SampleHandler()))
 
 	f, err := mr.TakeMethod(r)
 	require.Nil(t, err)
@@ -39,13 +39,13 @@ func TestRegisterMethod(t *testing.T) {
 
 	mr := NewMethodRepository()
 
-	err := mr.RegisterMethod("", nil, nil, nil)
+	err := mr.RegisterMethod("", nil)
 	require.Error(t, err)
 
-	err = mr.RegisterMethod("test", nil, nil, nil)
+	err = mr.RegisterMethod("test", nil)
 	require.Error(t, err)
 
-	err = mr.RegisterMethod("test", SampleHandler(), nil, nil)
+	err = mr.RegisterMethod("test", SampleHandler())
 	require.NoError(t, err)
 }
 
@@ -53,7 +53,7 @@ func TestMethods(t *testing.T) {
 
 	mr := NewMethodRepository()
 
-	err := mr.RegisterMethod("JsonRpc.Sample", SampleHandler(), nil, nil)
+	err := mr.RegisterMethod("JsonRpc.Sample", SampleHandler())
 	require.NoError(t, err)
 
 	ml := mr.Methods()

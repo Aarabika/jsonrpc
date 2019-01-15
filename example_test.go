@@ -38,12 +38,11 @@ func ExampleEchoHandler_ServeJSONRPC() {
 
 	mr := NewMethodRepository()
 
-	if err := mr.RegisterMethod("Main.Echo", EchoHandler{}, EchoParams{}, EchoResult{}); err != nil {
+	if err := mr.RegisterMethod("Main.Echo", EchoHandler{}); err != nil {
 		log.Fatalln(err)
 	}
 
 	http.Handle("/jrpc", mr)
-	http.HandleFunc("/jrpc/debug", mr.ServeDebug)
 
 	srv := httptest.NewServer(http.DefaultServeMux)
 	defer srv.Close()
