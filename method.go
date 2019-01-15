@@ -41,8 +41,8 @@ func (mr *MethodRepository) TakeMethod(r *Request) (Handler, *Error) {
 	return md.Handler, nil
 }
 
-// RegisterMethod registers jsonrpc.Func to MethodRepository.
-func (mr *MethodRepository) RegisterMethod(method string, h Handler) error {
+// Handle registers jsonrpc.Func to MethodRepository.
+func (mr *MethodRepository) Handle(method string, h Handler) error {
 	if method == "" || h == nil {
 		return errors.New("jsonrpc: method name and function should not be empty")
 	}

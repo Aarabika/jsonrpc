@@ -50,12 +50,12 @@ func TestHandler(t *testing.T) {
 	h1.F = func(c context.Context, params *fastjson.RawMessage) (interface{}, *Error) {
 		return "hello", nil
 	}
-	require.NoError(t, mr.RegisterMethod("hello", h1))
+	require.NoError(t, mr.Handle("hello", h1))
 	h2 := &handler{}
 	h2.F = func(c context.Context, params *fastjson.RawMessage) (interface{}, *Error) {
 		return nil, ErrInternal()
 	}
-	require.NoError(t, mr.RegisterMethod("bye", h2))
+	require.NoError(t, mr.Handle("bye", h2))
 
 	rec = httptest.NewRecorder()
 	r, err = http.NewRequest("", "", bytes.NewReader([]byte(`{"jsonrpc":"2.0","id":"test","method":"hello","params":{}}`)))

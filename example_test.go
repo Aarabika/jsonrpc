@@ -38,7 +38,7 @@ func ExampleEchoHandler_ServeJSONRPC() {
 
 	mr := NewMethodRepository()
 
-	if err := mr.RegisterMethod("Main.Echo", EchoHandler{}); err != nil {
+	if err := mr.Handle("Main.Echo", EchoHandler{}); err != nil {
 		log.Fatalln(err)
 	}
 
