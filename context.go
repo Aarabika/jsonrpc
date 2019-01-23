@@ -13,6 +13,16 @@ type cookies struct{}
 
 type сookieGetter func(name string) (*http.Cookie, error)
 
+type method struct{}
+
+func Method(c context.Context) string {
+	return c.Value(method{}).(string)
+}
+
+func SetMethod(c context.Context, val string) context.Context {
+	return context.WithValue(c, method{}, val)
+}
+
 func Headers(c context.Context) http.Header {
 	return c.Value(headers{}).(http.Header)
 }

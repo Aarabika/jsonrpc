@@ -51,11 +51,15 @@ func (mr *MethodRepository) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (mr *MethodRepository) InvokeMethod(c context.Context, r *Request) *Response {
 	var h Handler
 	res := NewResponse(r)
+
+	c = con.SetRequestId(c, r.ID)
+	c = SetMethod(c, r.Method)
+
 	h, res.Error = mr.TakeMethod(r)
 	if res.Error != nil {
 		return res
 	}
-	res.Result, res.Error = h.ServeJSONRPC(con.SetRequestId(c, r.ID), r.Params)
+	res.Result, res.Error = h.ServeJSONRPC(c, r.Params)
 	if res.Error != nil {
 		res.Result = nil
 	}
