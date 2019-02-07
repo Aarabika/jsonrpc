@@ -28,7 +28,7 @@ type (
 
 	// A Response represents a JSON-RPC response returned by the server.
 	Response struct {
-		ID      string      `json:"id,omitempty"`
+		ID      string      `json:"id"`
 		Version string      `json:"jsonrpc"`
 		Result  interface{} `json:"result,omitempty"`
 		Error   *Error      `json:"error,omitempty"`

@@ -15,6 +15,9 @@ type сookieGetter func(name string) (*http.Cookie, error)
 
 type method struct{}
 
+type requestId struct{}
+
+
 func Method(c context.Context) string {
 	return c.Value(method{}).(string)
 }
@@ -45,4 +48,14 @@ func Cookie(c context.Context, name string) (*http.Cookie, error) {
 
 func SetCookie(c context.Context, cookie сookieGetter) context.Context {
 	return context.WithValue(c, cookies{}, cookie)
+}
+
+// RequestId takes request id from context.
+func RequestId(c context.Context) string {
+	return c.Value(requestId{}).(string)
+}
+
+// WithRequestId adds request id to context.
+func SetRequestId(c context.Context, id string) context.Context {
+	return context.WithValue(c, requestId{}, id)
 }
