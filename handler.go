@@ -2,7 +2,6 @@ package jsonrpc
 
 import (
 	"context"
-	con "github.com/Aarabika/context"
 	"github.com/intel-go/fastjson"
 	"net/http"
 )
@@ -52,7 +51,7 @@ func (mr *MethodRepository) InvokeMethod(c context.Context, r *Request) *Respons
 	var h Handler
 	res := NewResponse(r)
 
-	c = con.SetRequestId(c, r.ID)
+	c = SetRequestId(c, r.ID)
 	c = SetMethod(c, r.Method)
 
 	h, res.Error = mr.TakeMethod(r)
