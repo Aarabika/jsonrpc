@@ -51,11 +51,11 @@ func SetCookie(c context.Context, cookie сookieGetter) context.Context {
 }
 
 // RequestId takes request id from context.
-func RequestId(c context.Context) string {
-	return c.Value(requestId{}).(string)
+func RequestId(c context.Context) interface{} {
+	return c.Value(requestId{})
 }
 
 // WithRequestId adds request id to context.
-func SetRequestId(c context.Context, id string) context.Context {
+func SetRequestId(c context.Context, id interface{}) context.Context {
 	return context.WithValue(c, requestId{}, id)
 }

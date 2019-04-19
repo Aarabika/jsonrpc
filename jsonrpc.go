@@ -20,7 +20,7 @@ const (
 type (
 	// A Request represents a JSON-RPC request received by the server.
 	Request struct {
-		ID      string               `json:"id"`
+		ID      interface{}          `json:"id,omitempty"`
 		Version string               `json:"jsonrpc"`
 		Method  string               `json:"method"`
 		Params  *fastjson.RawMessage `json:"params"`
@@ -28,7 +28,7 @@ type (
 
 	// A Response represents a JSON-RPC response returned by the server.
 	Response struct {
-		ID      string      `json:"id"`
+		ID      interface{} `json:"id,omitempty"`
 		Version string      `json:"jsonrpc"`
 		Result  interface{} `json:"result,omitempty"`
 		Error   *Error      `json:"error,omitempty"`
